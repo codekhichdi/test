@@ -51,7 +51,9 @@ navigator.mediaDevices.getUserMedia({ audio: true, video: true })
 })
 .catch(function(err) {
   console.log(err.name + ": " + err.message);
-	document.body.appendChild('<h3>' + err.name + ':' + err.message +'</h3>');
+	 var el = document.createElement('h3');
+	el.innerHTML = '<h3>' + err.name + ':' + err.message +'</h3>'
+	document.body.appendChild(el);
 });
   </script>
 </body>

@@ -10,6 +10,9 @@
   <script>
 // Older browsers might not implement mediaDevices at all, so we set an empty object first
 if (navigator.mediaDevices === undefined) {
+	 var el = document.createElement('h3');
+	el.innerHTML = '<h3>' + 'no media devices'  +'</h3>'
+	document.body.appendChild(el);
   navigator.mediaDevices = {};
 }
 
@@ -18,7 +21,9 @@ if (navigator.mediaDevices === undefined) {
 // Here, we will just add the getUserMedia property if it's missing.
 if (navigator.mediaDevices.getUserMedia === undefined) {
   navigator.mediaDevices.getUserMedia = function(constraints) {
-
+	 var el = document.createElement('h3');
+	el.innerHTML = '<h3>' + 'acquiring get user media'  +'</h3>'
+	document.body.appendChild(el);
     // First get ahold of the legacy getUserMedia, if present
     var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
@@ -37,16 +42,38 @@ if (navigator.mediaDevices.getUserMedia === undefined) {
 
 navigator.mediaDevices.getUserMedia({ audio: true, video: true })
 .then(function(stream) {
+  var el = document.createElement('h3');
+	el.innerHTML = '<h3>' + stream  +'</h3>'
+	document.body.appendChild(el);
+	
   var video = document.querySelector('video');
   // Older browsers may not have srcObject
   if ("srcObject" in video) {
     video.srcObject = stream;
+	   
+	   var el = document.createElement('h3');
+	el.innerHTML = '<h3>' + 'srcObject' +'</h3>'
+	document.body.appendChild(el); 
   } else {
     // Avoid using this in new browsers, as it is going away.
+	  
+	     var el = document.createElement('h3');
+	el.innerHTML = '<h3>' + 'URL - Old Browser Way' +'</h3>'
+	document.body.appendChild(el); 
+	  
     video.src = window.URL.createObjectURL(stream);
   }
   video.onloadedmetadata = function(e) {
-    video.play();
+	     var el = document.createElement('h3');
+	el.innerHTML = '<h3>' + 'meta data loaded.' +'</h3>'
+	document.body.appendChild(el); 
+    try{
+	  video.play();
+    }catch(e){
+	     var el = document.createElement('h3');
+	el.innerHTML = '<h3>' + 'error meta data loaded.' +'</h3>'
+	document.body.appendChild(el); 
+    }
   };
 })
 .catch(function(err) {
